@@ -33,7 +33,7 @@ class KiwiMask:
         upper_leaf = np.array([85, 255, 255])
         leaf_mask = cv2.inRange(hsv, lower_leaf, upper_leaf)
         
-        # Kivi maskesini yapraklardan ayır
+        # Kivi maskesini yapraklardan ayırma
         self.mask = cv2.bitwise_and(broad_mask, cv2.bitwise_not(leaf_mask))
         
         # Morfolojik işlemler
