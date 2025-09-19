@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-image_path = r"C:\Users\Zeki\Desktop\resim\kiwi.jpg"
+image_path = r"your_image_path"
 class KiwiMask:
     def __init__(self, image_path, min_area=700, max_area=50000):
         self.image_path = image_path
