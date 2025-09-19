@@ -2,22 +2,25 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-image_path = r"your_image_path"
+image_path = r"C:\Users\Zeki\Desktop\resim\kiwi.jpg"
 class KiwiMask:
     def __init__(self, image_path, min_area=700, max_area=50000):
         self.image_path = image_path
         self.min_area = min_area
         self.max_area = max_area
         
-        # Görüntüyü yükle
-        self.image = cv2.imread(self.image_path)
-        if self.image is None:
-            print("Görsel yüklenemedi")
+        
         
         self.mask = None
         self.edges = None
         self.kiwi_mask = None
         self.kiwi_count = 0
+
+    def load_image(self):
+        self.image = cv2.imread(self.image_path)
+        if self.image is None:
+          raise FileNotFoundError(f"Görsel yüklenemedi: {self.image_path}")
+
     
     def mask_and_morf_process(self):
         #HSV 
@@ -33,7 +36,7 @@ class KiwiMask:
         upper_leaf = np.array([85, 255, 255])
         leaf_mask = cv2.inRange(hsv, lower_leaf, upper_leaf)
         
-        # Kivi maskesini yapraklardan ayırma
+        # Kivi maskesini yapraklardan ayır
         self.mask = cv2.bitwise_and(broad_mask, cv2.bitwise_not(leaf_mask))
         
         # Morfolojik işlemler
@@ -83,7 +86,7 @@ class KiwiMask:
         plt.show()
     
     def run(self):
-        
+        self.load_image()
         self.mask_and_morf_process()
         self.detect_edges()
         self.find_kiwis()
